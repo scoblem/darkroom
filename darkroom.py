@@ -43,7 +43,7 @@ def get_position(grid): # asign each actor a random position on pre-defined grid
     else:
         return get_position(grid)
 
-MAP_SIZE = 3 # set grid size
+MAP_SIZE = int(input('SET MAP SIZE: ')) # set grid size
 MAP_CELLS = make_grid(MAP_SIZE) # get grid
 
 def get_move(current_positon): # return valid moves based on x, y position
@@ -75,6 +75,7 @@ def main(): # main game loop
 
     while True:
         VALID_MOVES = get_move(PLAYER)
+
         clear()
         print("It is pitch black. You are likely to be eaten by a grue.")
         print("You're currently in room {}".format(PLAYER))
