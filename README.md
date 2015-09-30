@@ -4,7 +4,7 @@
 
 * Randomly assign a exit, monster & player position.
 
-* The player wins if they reach the exit, loses if they land on the grue.
+* The player wins if they reach the exit, loses if they land on the monster.
 
 ######Example size 4 grid:
 ```
