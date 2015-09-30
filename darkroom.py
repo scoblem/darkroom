@@ -34,6 +34,11 @@ def get_position(grid): # asign each actor a random position on pre-defined grid
     positions = player_position, grue_position, exit_position
     count = 0
 
+    # if player_position == grue_position or player_position == exit_position or grue_position == exit_position:
+    #     return get_position(grid)
+    #
+    # return positions
+
     for i in positions:
         if positions.count(i) > 1:
             count +=1
@@ -47,15 +52,15 @@ MAP_SIZE = int(input('SET MAP SIZE: ')) # set grid size
 MAP_CELLS = make_grid(MAP_SIZE) # get grid
 
 def get_move(current_positon): # return valid moves based on x, y position
-    MOVES = ['LEFT', 'RIGHT', 'UP', 'DOWN']
+    moves = ['LEFT', 'RIGHT', 'UP', 'DOWN']
     x, y = current_positon
 
-    if y == 0: MOVES.remove('LEFT')
-    if x == 0: MOVES.remove('UP')
-    if y == MAP_SIZE: MOVES.remove('RIGHT')
-    if x == MAP_SIZE: MOVES.remove('DOWN')
+    if y == 0: moves.remove('LEFT')
+    if x == 0: moves.remove('UP')
+    if y == MAP_SIZE: moves.remove('RIGHT')
+    if x == MAP_SIZE: moves.remove('DOWN')
 
-    return MOVES
+    return moves
 
 def move_player(move, position): # move actor and return new x, y position
     x, y = position
@@ -69,26 +74,26 @@ def move_player(move, position): # move actor and return new x, y position
 
 def main(): # main game loop
     PLAYER, GRUE, EXIT = get_position(MAP_CELLS)
-    print('PLAYER {}'.format(PLAYER))
-    print('GRUE {}'.format(GRUE))
-    print('EXIT {}'.format(EXIT))
+    # print('PLAYER {}'.format(PLAYER))
+    # print('GRUE {}'.format(GRUE))
+    # print('EXIT {}'.format(EXIT))
 
     while True:
-        VALID_MOVES = get_move(PLAYER)
+        valid_moves = get_move(PLAYER)
 
         clear()
         print("It is pitch black. You are likely to be eaten by a grue.")
         print("You're currently in room {}".format(PLAYER))
-        print("You can move {}".format(VALID_MOVES))
+        print("You can move {}".format(valid_moves))
         print("Enter QUIT to quit")
 
-        MOVE = input("> ")
-        MOVE = MOVE.upper()
+        move = input("> ")
+        move = move.upper()
 
-        if MOVE == 'QUIT':
+        if move == 'QUIT':
             break
-        elif MOVE in VALID_MOVES:
-            PLAYER = move_player(MOVE, PLAYER)
+        elif move in valid_moves:
+            PLAYER = move_player(move, PLAYER)
             if PLAYER == GRUE:
                 print('You have been eaten by a Grue.')
                 sys.exit(0)
