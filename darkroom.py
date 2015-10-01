@@ -72,11 +72,22 @@ def move_player(move, position): # move actor and return new x, y position
 
     return x, y
 
+def draw_map(display_grid, position): # Print display_grid, ^ = player position, . = breadcrumbs
+    x, y = position
+    display_grid[x][y] = '|__^__|'
+    for row in display_grid:
+        print(" ".join(row) + '\n')
+    display_grid[x][y] = '|__.__|'
+
 def main(): # main game loop
     PLAYER, GRUE, EXIT = get_position(MAP_CELLS)
-    # print('PLAYER {}'.format(PLAYER))
-    # print('GRUE {}'.format(GRUE))
-    # print('EXIT {}'.format(EXIT))
+    display_grid = []
+
+    for row in range(MAP_SIZE): #Generate rows with length of MAP_SIZE and fill with empty lists
+      display_grid.append([])
+
+      for column in range(MAP_SIZE): # Fill lists with empty 'rooms'
+        display_grid[row].append('|_____|')
 
     while True:
         valid_moves = get_move(PLAYER)
@@ -87,6 +98,8 @@ def main(): # main game loop
         print("You can move {}".format(valid_moves))
         print("Enter QUIT to quit")
 
+        draw_map(display_grid, PLAYER)
+
         move = input("> ")
         move = move.upper()
 
@@ -94,6 +107,7 @@ def main(): # main game loop
             break
         elif move in valid_moves:
             PLAYER = move_player(move, PLAYER)
+
             if PLAYER == GRUE:
                 print('You have been eaten by a Grue.')
                 sys.exit(0)
