@@ -107,9 +107,11 @@ def main(): # main game loop
             PLAYER = move_player(move, PLAYER)
 
             if PLAYER == GRUE:
-                sys.exit('You have been eaten by a Grue.')
+                print('You have been eaten by a Grue.')
+                sys.exit(0)
             if PLAYER == EXIT:
-                sys.exit('You have found the exit!')
+                print('You have found the exit!')
+                sys.exit(0)
 
 if __name__ == ('__main__'):
     main()
