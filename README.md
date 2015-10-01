@@ -14,7 +14,9 @@
 (3, 0), (3, 1), (3, 2)
 ```
 ######Example size 4 map:
-* ^ = Player . = Breadcrumbs
+* ^ = Player
+* . = Breadcrumbs
+
 ```
 |_____| |__^__| |_____|
 
