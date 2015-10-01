@@ -6,13 +6,11 @@ def clear(): # reset terminal screen
     elif 'nt' in os.name:
         return os.system('cls')
     else:
-        print("Compatibility Error")
-        sys.exit(0)
+        sys.exit("ERROR: OS not supported.")
 
 def make_grid(n): # make a square grid of n size
     if n <= 1:
-        print ("ERROR: grid must be at least 2") # max recursion error if <= 1
-        sys.exit(0)
+        sys.exit("ERROR: grid must be at least 2") # max recursion error if <= 1
 
     grid = list()
     start_row = 0
@@ -104,16 +102,14 @@ def main(): # main game loop
         move = move.upper()
 
         if move == 'QUIT':
-            break
+            sys.exit("Thanks for playing!")
         elif move in valid_moves:
             PLAYER = move_player(move, PLAYER)
 
             if PLAYER == GRUE:
-                print('You have been eaten by a Grue.')
-                sys.exit(0)
+                sys.exit('You have been eaten by a Grue.')
             if PLAYER == EXIT:
-                print('You have found the exit!')
-                sys.exit(0)
+                sys.exit('You have found the exit!')
 
 if __name__ == ('__main__'):
     main()
