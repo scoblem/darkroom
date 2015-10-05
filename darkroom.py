@@ -55,8 +55,8 @@ def get_move(current_positon): # return valid moves based on x, y position
 
     if y == 0: moves.remove('LEFT')
     if x == 0: moves.remove('UP')
-    if y == MAP_SIZE: moves.remove('RIGHT')
-    if x == MAP_SIZE: moves.remove('DOWN')
+    if y == MAP_SIZE-1: moves.remove('RIGHT')
+    if x == MAP_SIZE-1: moves.remove('DOWN')
 
     return moves
 
@@ -70,16 +70,26 @@ def move_player(move, position): # move actor and return new x, y position
 
     return x, y
 
-def draw_map(display_grid, position): # Print display_grid, ^ = player position, . = breadcrumbs
+def draw_map(display_grid, position, last_move, valid_moves): # Print display_grid, ^ = player position, . = breadcrumbs
     x, y = position
-    display_grid[x][y] = '|__^__|'
+
+    if last_move in valid_moves:
+        if last_move == 'LEFT': display_grid[x][y] = '|__<__|'
+        if last_move == 'RIGHT': display_grid[x][y] = '|__>__|'
+        if last_move == 'UP': display_grid[x][y] = '|__^__|'
+        if last_move == 'DOWN': display_grid[x][y] = '|__v__|'
+    else:
+        display_grid[x][y] = '|__X__|'
+
     for row in display_grid:
         print(" ".join(row) + '\n')
+
     display_grid[x][y] = '|__.__|'
 
 def main(): # main game loop
     PLAYER, GRUE, EXIT = get_position(MAP_CELLS)
     display_grid = []
+    last_move = "START"
 
     for row in range(MAP_SIZE): #Generate rows with length of MAP_SIZE and fill with empty lists
       display_grid.append([])
@@ -96,7 +106,7 @@ def main(): # main game loop
         print("You can move {}".format(valid_moves))
         print("Enter QUIT to quit")
 
-        draw_map(display_grid, PLAYER)
+        draw_map(display_grid, PLAYER, last_move, valid_moves)
 
         move = input("> ")
         move = move.upper()
@@ -105,7 +115,7 @@ def main(): # main game loop
             sys.exit("Thanks for playing!")
         elif move in valid_moves:
             PLAYER = move_player(move, PLAYER)
-
+            last_move = move
             if PLAYER == GRUE:
                 print('You have been eaten by a Grue.')
                 sys.exit(0)
